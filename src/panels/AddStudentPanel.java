@@ -28,6 +28,8 @@ public class AddStudentPanel extends JPanel {
   private JTextField ageField;
   private JTextField emailField;
   private JTextField courseField;
+  private JTextField yearLevelField;
+  private JTextField contactNumberField;
 
   public AddStudentPanel() {
     setLayout(new BorderLayout());
@@ -97,6 +99,26 @@ public class AddStudentPanel extends JPanel {
       courseField = new JTextField(20);
       formPanel.add(courseField, gbc);
 
+      gbc.gridx = 0;
+      gbc.gridy = 5;
+      gbc.weightx = 0;
+      formPanel.add(new JLabel("Year Level:"), gbc);
+      gbc.gridx = 1;
+      gbc.gridy = 5;
+      gbc.weightx = 1.0;
+      yearLevelField = new JTextField(20);
+      formPanel.add(yearLevelField, gbc);
+
+      gbc.gridx = 0;
+      gbc.gridy = 6;
+      gbc.weightx = 0;
+      formPanel.add(new JLabel("Contact Number:"), gbc);
+      gbc.gridx = 1;
+      gbc.gridy = 6;
+      gbc.weightx = 1.0;
+      contactNumberField = new JTextField(20);
+      formPanel.add(contactNumberField, gbc);
+
     add(formPanel, BorderLayout.CENTER);
 
     // Button panel
@@ -121,9 +143,11 @@ public class AddStudentPanel extends JPanel {
     String ageText = ageField.getText().trim();
     String email = emailField.getText().trim();
     String course = courseField.getText().trim();
+    String year = yearLevelField.getText().trim();
+    String contact = contactNumberField.getText().trim();
 
     // Basic validation
-    if (id.isEmpty() || name.isEmpty() || ageText.isEmpty() || email.isEmpty() || course.isEmpty()) {
+    if (id.isEmpty() || name.isEmpty() || ageText.isEmpty() || email.isEmpty() || course.isEmpty() || year.isEmpty() || contact.isEmpty()){
       JOptionPane.showMessageDialog(this,
           "Please fill in all fields.", "Validation Error", JOptionPane.WARNING_MESSAGE);
       return;
@@ -136,6 +160,12 @@ public class AddStudentPanel extends JPanel {
       JOptionPane.showMessageDialog(this,
           "Age must be a valid number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
       return;
+    }
+
+    if (age < 0){
+        JOptionPane.showMessageDialog(this,
+                "Age must be a positive number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+        return;
     }
 
     // Check for duplicate ID
@@ -158,5 +188,7 @@ public class AddStudentPanel extends JPanel {
     ageField.setText("");
     emailField.setText("");
     courseField.setText("");
+    yearLevelField.setText("");
+    contactNumberField.setText("");
   }
 }
