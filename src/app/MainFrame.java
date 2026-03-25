@@ -50,6 +50,7 @@ public class MainFrame extends JFrame {
     SwingUtilities.invokeLater(() -> {
       MainFrame frame = new MainFrame();
       frame.setVisible(true);
+      frame.pack();
     });
   }
 }

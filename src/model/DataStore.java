@@ -20,10 +20,10 @@ public class DataStore {
 
   private DataStore() {
     students = new ArrayList<>();
-//    // Pre-load some sample data for testing
-//    students.add(new Student("2024-0001", "Juan Dela Cruz", 20, course));
-//    students.add(new Student("2024-0002", "Maria Santos", 19, course));
-//    students.add(new Student("2024-0003", "Jose Rizal", 21, course));
+    // Pre-load some sample data for testin
+    students.add(new Student("1001", "John Doe", 20, "Engineering", "CpE", "2", "09123456789"));
+    students.add(new Student("1002", "Jane Smith", 21, "IT", "BSIT", "3", "09987654321"));
+    students.add(new Student("1003", "Michael Cruz", 19, "Computer Science", "BSCS", "1", "09112223344"));
   }
 
   /** Get the singleton instance */

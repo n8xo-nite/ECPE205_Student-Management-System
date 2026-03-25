@@ -19,13 +19,6 @@ public class Student {
   private String course;
   private String yearLevel;
   private String contactNumber;
-//
-//  public Student(String id, String name, int age) {
-//    this.id = id;
-//    this.name = name;
-//    this.age = age;
-//  }
-//
 
 
     public Student(String id, String name, int age, String email, String course, String yearLevel, String contactNumber) {

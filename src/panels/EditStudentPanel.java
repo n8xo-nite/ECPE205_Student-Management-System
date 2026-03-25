@@ -10,10 +10,10 @@ import java.util.List;
 
 /**
  * Panel for editing and deleting students.
- * 
+ *
  * ASSIGNED TO: Student 4 (Edit / Delete Feature Owner)
  * or split between Student 4 & Student 5 if preferred
- * 
+ *
  * TODO:
  * - Allow selecting a row and editing the student's fields
  * - Add "Update" button to save changes to the DataStore
@@ -24,18 +24,16 @@ import java.util.List;
 public class EditStudentPanel extends JPanel {
   private DefaultTableModel tableModel;
   private JTable table;
-  private JTextField idField, nameField, ageField;
+  private JTextField idField, nameField, ageField, fieldField, courseField, yearLevelField, contactField;
 
   public EditStudentPanel() {
     setLayout(new BorderLayout());
 
-    // Title
     JLabel title = new JLabel("Edit / Delete Student", SwingConstants.CENTER);
     title.setFont(new Font("Arial", Font.BOLD, 24));
     title.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
     add(title, BorderLayout.NORTH);
 
-    // Table
     String[] columns = { "Student ID", "Name", "Age" , "Field" , "Course" , "Year Level" , "Contact Number" };
     tableModel = new DefaultTableModel(columns, 0) {
       @Override
@@ -46,6 +44,30 @@ public class EditStudentPanel extends JPanel {
     table = new JTable(tableModel);
     table.setRowHeight(25);
     table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+    table.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+      @Override
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component c = super.getTableCellRendererComponent(
+                table, value, isSelected, hasFocus, row, column);
+
+        if (!isSelected) {
+          if (row % 2 == 0) {
+            c.setBackground(new Color(240, 240, 240));
+          } else {
+            c.setBackground(Color.WHITE);
+          }
+        } else {
+          c.setBackground(new Color(184, 207, 229));
+        }
+
+        return c;
+      }
+    });
+
+    table.setGridColor(new Color(200, 200, 200));
+    table.setSelectionBackground(new Color(184, 207, 229));
+
     table.getSelectionModel().addListSelectionListener(e -> {
       if (!e.getValueIsAdjusting()) {
         populateFields();
@@ -55,14 +77,13 @@ public class EditStudentPanel extends JPanel {
     JScrollPane scrollPane = new JScrollPane(table);
     add(scrollPane, BorderLayout.CENTER);
 
-    // Edit form + buttons at bottom
     JPanel bottomPanel = new JPanel(new BorderLayout());
     bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 15, 20));
 
     JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
     formPanel.add(new JLabel("ID:"));
     idField = new JTextField(10);
-    idField.setEditable(false); // ID should not be changed
+    idField.setEditable(false);
     formPanel.add(idField);
 
     formPanel.add(new JLabel("Name:"));
@@ -72,6 +93,22 @@ public class EditStudentPanel extends JPanel {
     formPanel.add(new JLabel("Age:"));
     ageField = new JTextField(5);
     formPanel.add(ageField);
+
+    formPanel.add(new JLabel("Field:"));
+    fieldField = new JTextField(10);
+    formPanel.add(fieldField);
+
+    formPanel.add(new JLabel("Course:"));
+    courseField = new JTextField(10);
+    formPanel.add(courseField);
+
+    formPanel.add(new JLabel("Year Level:"));
+    yearLevelField = new JTextField(5);
+    formPanel.add(yearLevelField);
+
+    formPanel.add(new JLabel("Contact Number:"));
+    contactField = new JTextField(12);
+    formPanel.add(contactField);
 
     bottomPanel.add(formPanel, BorderLayout.CENTER);
 
@@ -110,6 +147,10 @@ public class EditStudentPanel extends JPanel {
       idField.setText(tableModel.getValueAt(row, 0).toString());
       nameField.setText(tableModel.getValueAt(row, 1).toString());
       ageField.setText(tableModel.getValueAt(row, 2).toString());
+      fieldField.setText(tableModel.getValueAt(row, 3).toString());
+      courseField.setText(tableModel.getValueAt(row, 4).toString());
+      yearLevelField.setText(tableModel.getValueAt(row, 5).toString());
+      contactField.setText(tableModel.getValueAt(row, 6).toString());
     }
   }
 
@@ -122,8 +163,12 @@ public class EditStudentPanel extends JPanel {
 
     String name = nameField.getText().trim();
     String ageText = ageField.getText().trim();
+    String field = fieldField.getText().trim();
+    String course = courseField.getText().trim();
+    String yearLevel = yearLevelField.getText().trim();
+    String contact = contactField.getText().trim();
 
-    if (name.isEmpty() || ageText.isEmpty()) {
+    if (name.isEmpty() || ageText.isEmpty() || field.isEmpty() || course.isEmpty() || yearLevel.isEmpty() || contact.isEmpty()) {
       JOptionPane.showMessageDialog(this, "Fields cannot be empty.", "Validation Error", JOptionPane.WARNING_MESSAGE);
       return;
     }
@@ -132,14 +177,16 @@ public class EditStudentPanel extends JPanel {
     try {
       age = Integer.parseInt(ageText);
     } catch (NumberFormatException ex) {
-      JOptionPane.showMessageDialog(this, "Age must be a valid number.", "Validation Error",
-          JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(this, "Age must be a valid number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
       return;
     }
 
     Student student = DataStore.getInstance().getAllStudents().get(row);
     student.setName(name);
     student.setAge(age);
+    student.setCourse(course);
+    student.setYearLevel(yearLevel);
+    student.setContactNumber(contact);
 
     JOptionPane.showMessageDialog(this, "Student updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
     loadData();
@@ -153,8 +200,8 @@ public class EditStudentPanel extends JPanel {
     }
 
     int confirm = JOptionPane.showConfirmDialog(this,
-        "Are you sure you want to delete this student?",
-        "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            "Are you sure you want to delete this student?",
+            "Confirm Delete", JOptionPane.YES_NO_OPTION);
 
     if (confirm == JOptionPane.YES_OPTION) {
       DataStore.getInstance().removeStudent(row);
@@ -167,5 +214,9 @@ public class EditStudentPanel extends JPanel {
     idField.setText("");
     nameField.setText("");
     ageField.setText("");
+    fieldField.setText("");
+    courseField.setText("");
+    yearLevelField.setText("");
+    contactField.setText("");
   }
 }
