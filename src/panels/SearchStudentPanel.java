@@ -99,10 +99,10 @@ public class SearchStudentPanel extends JPanel {
       resultArea.setText("No students found matching: \"" + searchField.getText().trim() + "\"");
     } else {
       StringBuilder sb = new StringBuilder();
-      sb.append(String.format("%-15s %-25s %-5s%n %-25s %-10s %-8s %-12s", "ID", "Name", "Age", "Email", "Course", "Year Level", "Contact Number"));
-      sb.append("-".repeat(45)).append("\n");
+      sb.append(String.format("%-7s %-20s %-5s%n %-20s %-10s %-12s %-10s", "ID", "Name", "Age", "Email", "Course", "Year Level", "Contact Number"));
+      sb.append("-".repeat(0)).append("\n");
       for (Student s : results) {
-        sb.append(String.format("%-15s %-25s %-5d%n %-25s %-10s %-8s %-12s", s.getId(), s.getName(), s.getAge(), s.getEmail(), s.getCourse(), s.getYearLevel(), s.getContactNumber()));
+        sb.append(String.format("%-7s %-20s %-5d%n %-20s %-10s %-10s %-10s\n", s.getId(), s.getName(), s.getAge(), s.getEmail(), s.getCourse(), s.getYearLevel(), s.getContactNumber()));
       }
       sb.append("\nFound ").append(results.size()).append(" result(s).");
       resultArea.setText(sb.toString());
