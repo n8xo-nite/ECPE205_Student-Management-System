@@ -173,7 +173,7 @@ public class AddStudentPanel extends JPanel {
       return;
     }
 
-    DataStore.getInstance().addStudent(new Student(id, name, age, email, course, year, contact));
+    DataStore.getInstance().addStudent(new Student(id, name, age,email, course, year, contact ));
 
     JOptionPane.showMessageDialog(this,
         "Student added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
