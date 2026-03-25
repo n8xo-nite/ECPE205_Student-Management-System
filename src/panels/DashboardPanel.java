@@ -20,16 +20,21 @@ import java.awt.*;
 public class DashboardPanel extends JPanel {
   private JLabel countLabel;
 
+
   public DashboardPanel() {
     setLayout(new BorderLayout());
+//    ImageIcon icon = new ImageIcon();
+////    int w = icon.getIconWidth();
+////    int h = icon.getIconHeight();
+////    setPreferredSize(new Dimension(w, h));
 
-    // Title
-    JLabel title = new JLabel("Dashboard", SwingConstants.CENTER);
-    title.setFont(new Font("Arial", Font.BOLD, 28));
-    title.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+      // Title
+      JLabel title = new JLabel("Dashboard", SwingConstants.CENTER);
+      title.setFont(new Font("Arial", Font.BOLD, 28));
+      title.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
     add(title, BorderLayout.NORTH);
 
-    // Center content
+      // Center content
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
     centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
@@ -42,6 +47,7 @@ public class DashboardPanel extends JPanel {
     centerPanel.add(Box.createVerticalStrut(20));
 
     JButton refreshBtn = new JButton("Refresh");
+
     refreshBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
     refreshBtn.addActionListener(e -> refreshData());
     centerPanel.add(refreshBtn);
@@ -52,4 +58,5 @@ public class DashboardPanel extends JPanel {
   private void refreshData() {
     countLabel.setText("Total Students: " + DataStore.getInstance().getCount());
   }
+
 }
