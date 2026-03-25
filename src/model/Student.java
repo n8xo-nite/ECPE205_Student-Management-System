@@ -6,7 +6,7 @@ package model;
  * ASSIGNED TO: Student 1 (Data Model Owner)
  * 
  * TODO for Student 1:
- * - Add more fields as needed (e.g., email, course, yearLevel, contactNumber)
+ * - Add more fields as needed (e.g., email, course, yearLevel, contactNumber) -- Complete
  * - Add validation logic (e.g., age must be positive, name not empty)
  * - Add a toString() method for display purposes
  * - Add a method to return data as an Object[] array for table display
@@ -15,6 +15,10 @@ public class Student {
   private String id;
   private String name;
   private int age;
+  private String email;
+  private String course;
+  private String yearLevel;
+  private String contactNumber;
 
   public Student(String id, String name, int age) {
     this.id = id;
@@ -22,7 +26,18 @@ public class Student {
     this.age = age;
   }
 
-  // --- Getters ---
+
+    public Student(String id, String name, int age, String email, String course, String yearLevel, String contactNumber) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.course = course;
+        this.yearLevel = yearLevel;
+        this.contactNumber = contactNumber;
+    }
+
+    // --- Getters ---
   public String getId() {
     return id;
   }
@@ -35,7 +50,23 @@ public class Student {
     return age;
   }
 
-  // --- Setters ---
+  public String getEmail() {
+      return email;
+  }
+
+  public String getCourse() {
+      return course;
+  }
+
+  public String getYearLevel() {
+      return yearLevel;
+  }
+
+  public String getContactNumber() {
+      return contactNumber;
+  }
+
+    // --- Setters ---
   public void setId(String id) {
     this.id = id;
   }
@@ -48,7 +79,23 @@ public class Student {
     this.age = age;
   }
 
-  @Override
+  public void setEmail(String email) {
+      this.email = email;
+  }
+
+  public void setCourse(String course) {
+      this.course = course;
+  }
+
+  public void setYearLevel(String yearLevel) {
+      this.yearLevel = yearLevel;
+  }
+
+  public void setContactNumber(String contactNumber) {
+      this.contactNumber = contactNumber;
+  }
+
+    @Override
   public String toString() {
     return id + " - " + name + " (Age: " + age + ")";
   }
