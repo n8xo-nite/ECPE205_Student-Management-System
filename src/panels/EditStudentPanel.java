@@ -10,10 +10,10 @@ import java.util.List;
 
 /**
  * Panel for editing and deleting students.
- * 
+ *
  * ASSIGNED TO: Student 4 (Edit / Delete Feature Owner)
  * or split between Student 4 & Student 5 if preferred
- * 
+ *
  * TODO:
  * - Allow selecting a row and editing the student's fields
  * - Add "Update" button to save changes to the DataStore
@@ -24,7 +24,8 @@ import java.util.List;
 public class EditStudentPanel extends JPanel {
   private DefaultTableModel tableModel;
   private JTable table;
-  private JTextField idField, nameField, ageField;
+  private JTextField idField, nameField, ageField, fieldField, courseField, yearLevelField, contactField;
+
 
   public EditStudentPanel() {
     setLayout(new BorderLayout());
@@ -73,7 +74,22 @@ public class EditStudentPanel extends JPanel {
     ageField = new JTextField(5);
     formPanel.add(ageField);
 
-    formPanel.add(new JLabel("Field"));
+    formPanel.add(new JLabel("Field:"));
+    fieldField = new JTextField(10);
+    formPanel.add(fieldField);
+
+    formPanel.add(new JLabel("Course:"));
+    courseField = new JTextField(10);
+    formPanel.add(courseField);
+
+    formPanel.add(new JLabel("Year Level:"));
+    yearLevelField = new JTextField(5);
+    formPanel.add(yearLevelField);
+
+    formPanel.add(new JLabel("Contact Number:"));
+    contactField = new JTextField(12);
+    formPanel.add(contactField);
+
 
 
 
@@ -121,8 +137,13 @@ public class EditStudentPanel extends JPanel {
       idField.setText(tableModel.getValueAt(row, 0).toString());
       nameField.setText(tableModel.getValueAt(row, 1).toString());
       ageField.setText(tableModel.getValueAt(row, 2).toString());
+      fieldField.setText(tableModel.getValueAt(row, 3).toString());
+      courseField.setText(tableModel.getValueAt(row, 4).toString());
+      yearLevelField.setText(tableModel.getValueAt(row, 5).toString());
+      contactField.setText(tableModel.getValueAt(row, 6).toString());
     }
   }
+
 
   private void updateStudent() {
     int row = table.getSelectedRow();
@@ -133,8 +154,12 @@ public class EditStudentPanel extends JPanel {
 
     String name = nameField.getText().trim();
     String ageText = ageField.getText().trim();
+    String field = fieldField.getText().trim();
+    String course = courseField.getText().trim();
+    String yearLevel = yearLevelField.getText().trim();
+    String contact = contactField.getText().trim();
 
-    if (name.isEmpty() || ageText.isEmpty()) {
+    if (name.isEmpty() || ageText.isEmpty() || field.isEmpty() || course.isEmpty() || yearLevel.isEmpty() || contact.isEmpty()) {
       JOptionPane.showMessageDialog(this, "Fields cannot be empty.", "Validation Error", JOptionPane.WARNING_MESSAGE);
       return;
     }
@@ -143,18 +168,22 @@ public class EditStudentPanel extends JPanel {
     try {
       age = Integer.parseInt(ageText);
     } catch (NumberFormatException ex) {
-      JOptionPane.showMessageDialog(this, "Age must be a valid number.", "Validation Error",
-          JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(this, "Age must be a valid number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
       return;
     }
 
     Student student = DataStore.getInstance().getAllStudents().get(row);
     student.setName(name);
     student.setAge(age);
+    student.setCourse(field);
+    student.setCourse(course);
+    student.setYearLevel(yearLevel);
+    student.setContactNumber(contact);
 
     JOptionPane.showMessageDialog(this, "Student updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
     loadData();
   }
+
 
   private void deleteStudent() {
     int row = table.getSelectedRow();
