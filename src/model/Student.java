@@ -97,7 +97,7 @@ public class Student {
 
     @Override
   public String toString() {
-    return id + " - " + name + " (Age: " + age + ")";
+    return id + " - " + name + " (Age: " + age + ")" + email + course + yearLevel + contactNumber;
   }
 
   /**
