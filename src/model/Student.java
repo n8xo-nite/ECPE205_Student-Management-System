@@ -19,13 +19,13 @@ public class Student {
   private String course;
   private String yearLevel;
   private String contactNumber;
-
-  public Student(String id, String name, int age) {
-    this.id = id;
-    this.name = name;
-    this.age = age;
-  }
-
+//
+//  public Student(String id, String name, int age) {
+//    this.id = id;
+//    this.name = name;
+//    this.age = age;
+//  }
+//
 
     public Student(String id, String name, int age, String email, String course, String yearLevel, String contactNumber) {
         this.id = id;
@@ -104,6 +104,6 @@ public class Student {
    * Returns student data as an Object array, useful for JTable rows.
    */
   public Object[] toTableRow() {
-    return new Object[] { id, name, age };
+    return new Object[] { id, name, age , email, course, yearLevel, contactNumber};
   }
 }
