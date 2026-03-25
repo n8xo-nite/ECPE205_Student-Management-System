@@ -5,8 +5,6 @@ import model.Student;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Panel for adding a new student.
