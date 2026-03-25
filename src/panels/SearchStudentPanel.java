@@ -38,7 +38,7 @@ public class SearchStudentPanel extends JPanel {
     JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-    searchPanel.add(new JLabel("Search by ID or Name:"));
+    searchPanel.add(new JLabel("Search by ID, name, course, ect:"));
     searchField = new JTextField(20);
     searchPanel.add(searchField);
 
@@ -85,8 +85,12 @@ public class SearchStudentPanel extends JPanel {
     List<Student> results = new ArrayList<>();
 
     for (Student s : allStudents) {
-      if (s.getId().toLowerCase().contains(query)
-          || s.getName().toLowerCase().contains(query)) {
+      if (s.getId().toLowerCase().contains(query) ||
+              s.getName().toLowerCase().contains(query) ||
+      s.getEmail().toLowerCase().contains(query) ||
+      s.getCourse().toLowerCase().contains(query) ||
+      s.getYearLevel().toLowerCase().contains(query) ||
+      s.getContactNumber().toLowerCase().contains(query)){
         results.add(s);
       }
     }
@@ -95,10 +99,10 @@ public class SearchStudentPanel extends JPanel {
       resultArea.setText("No students found matching: \"" + searchField.getText().trim() + "\"");
     } else {
       StringBuilder sb = new StringBuilder();
-      sb.append(String.format("%-15s %-25s %-5s%n", "ID", "Name", "Age"));
+      sb.append(String.format("%-15s %-25s %-5s%n %-25s %-10s %-8s %-12s", "ID", "Name", "Age", "Email", "Course", "Year Level", "Contact Number"));
       sb.append("-".repeat(45)).append("\n");
       for (Student s : results) {
-        sb.append(String.format("%-15s %-25s %-5d%n", s.getId(), s.getName(), s.getAge()));
+        sb.append(String.format("%-15s %-25s %-5d%n %-25s %-10s %-8s %-12s", s.getId(), s.getName(), s.getAge(), s.getEmail(), s.getCourse(), s.getYearLevel(), s.getContactNumber()));
       }
       sb.append("\nFound ").append(results.size()).append(" result(s).");
       resultArea.setText(sb.toString());
