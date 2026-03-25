@@ -5,6 +5,8 @@ import model.Student;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.LinkedList;
 
 /**
  * Panel for adding a new student.
@@ -166,12 +168,43 @@ public class AddStudentPanel extends JPanel {
         return;
     }
 
+    int yearlevel = Integer.parseInt(year);
+    if (yearlevel <= 0){
+      JOptionPane.showMessageDialog(this,
+              "Year level is invalid.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+
+    int contactnumber;
+    try {
+      contactnumber = Integer.parseInt(contact);
+    } catch (NumberFormatException ex) {
+      JOptionPane.showMessageDialog(this,
+              "Contact Number is Invalid.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+
     // Check for duplicate ID
     if (DataStore.getInstance().findById(id) != null) {
       JOptionPane.showMessageDialog(this,
           "A student with this ID already exists.", "Duplicate ID", JOptionPane.WARNING_MESSAGE);
       return;
     }
+
+
+    List<Student> students = DataStore.getInstance().getAllStudents();
+    for (int i = 0; i< students.size(); i++){
+      if (students.get(i).getEmail().equals(email)){
+        JOptionPane.showMessageDialog(this,
+                "This email is already in use.", "Duplicate email", JOptionPane.WARNING_MESSAGE);
+        return;
+      } else if (students.get(i).getName().equals(name)) {
+        JOptionPane.showMessageDialog(this,
+                "A student with this name already exists.", "Duplicate Name", JOptionPane.WARNING_MESSAGE);
+      return;
+      }
+    }
+
 
     DataStore.getInstance().addStudent(new Student(id, name, age,email, course, year,contact ));
 
