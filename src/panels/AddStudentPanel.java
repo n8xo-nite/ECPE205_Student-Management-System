@@ -5,6 +5,8 @@ import model.Student;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Panel for adding a new student.
@@ -24,6 +26,8 @@ public class AddStudentPanel extends JPanel {
   private JTextField idField;
   private JTextField nameField;
   private JTextField ageField;
+  private JTextField emailField;
+  private JTextField courseField;
 
   public AddStudentPanel() {
     setLayout(new BorderLayout());
@@ -73,6 +77,26 @@ public class AddStudentPanel extends JPanel {
     ageField = new JTextField(20);
     formPanel.add(ageField, gbc);
 
+      gbc.gridx = 0;
+      gbc.gridy = 3;
+      gbc.weightx = 0;
+      formPanel.add(new JLabel("Email:"), gbc);
+      gbc.gridx = 1;
+      gbc.gridy = 3;
+      gbc.weightx = 1.0;
+      emailField = new JTextField(20);
+      formPanel.add(emailField, gbc);
+
+      gbc.gridx = 0;
+      gbc.gridy = 4;
+      gbc.weightx = 0;
+      formPanel.add(new JLabel("Course:"), gbc);
+      gbc.gridx = 1;
+      gbc.gridy = 4;
+      gbc.weightx = 1.0;
+      courseField = new JTextField(20);
+      formPanel.add(courseField, gbc);
+
     add(formPanel, BorderLayout.CENTER);
 
     // Button panel
@@ -81,6 +105,7 @@ public class AddStudentPanel extends JPanel {
 
     JButton addBtn = new JButton("Add Student");
     addBtn.addActionListener(e -> addStudent());
+
     buttonPanel.add(addBtn);
 
     JButton clearBtn = new JButton("Clear");
@@ -94,9 +119,11 @@ public class AddStudentPanel extends JPanel {
     String id = idField.getText().trim();
     String name = nameField.getText().trim();
     String ageText = ageField.getText().trim();
+    String email = emailField.getText().trim();
+    String course = courseField.getText().trim();
 
     // Basic validation
-    if (id.isEmpty() || name.isEmpty() || ageText.isEmpty()) {
+    if (id.isEmpty() || name.isEmpty() || ageText.isEmpty() || email.isEmpty() || course.isEmpty()) {
       JOptionPane.showMessageDialog(this,
           "Please fill in all fields.", "Validation Error", JOptionPane.WARNING_MESSAGE);
       return;
@@ -119,6 +146,7 @@ public class AddStudentPanel extends JPanel {
     }
 
     DataStore.getInstance().addStudent(new Student(id, name, age));
+
     JOptionPane.showMessageDialog(this,
         "Student added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     clearFields();
@@ -128,5 +156,7 @@ public class AddStudentPanel extends JPanel {
     idField.setText("");
     nameField.setText("");
     ageField.setText("");
+    emailField.setText("");
+    courseField.setText("");
   }
 }
