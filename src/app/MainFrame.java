@@ -47,8 +47,19 @@ public class MainFrame extends JFrame {
   public static void main(String[] args) {
     // Use the system look-and-feel for a native appearance
     try {
-      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-      
+//      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                Color newGreen = new Color(87, 242, 135);
+                Color lightGrayBg = new Color(245, 245, 245);
+                UIManager.put("nimbusBase", newGreen);
+                UIManager.put("nimbusBlueGrey", newGreen);
+                UIManager.put("control", lightGrayBg);
+                UIManager.put("LightBackground", Color.WHITE);
+                UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
     } catch (Exception ignored) {
     }
 
