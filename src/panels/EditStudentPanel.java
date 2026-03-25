@@ -36,7 +36,7 @@ public class EditStudentPanel extends JPanel {
     add(title, BorderLayout.NORTH);
 
     // Table
-    String[] columns = { "Student ID", "Name", "Age" , "Field" , "Email" };
+    String[] columns = { "Student ID", "Name", "Age" , "Field" , "Course" , "Year Level" , "Contact Number" };
     tableModel = new DefaultTableModel(columns, 0) {
       @Override
       public boolean isCellEditable(int row, int column) {

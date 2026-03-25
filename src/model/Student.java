@@ -27,12 +27,12 @@ public class Student {
 //  }
 //
 
-    public Student(String id, String name, int age, String email, String course, String yearLevel, String contactNumber) {
+    public Student(String id, String name, int age, String email, String course, String yearLevel , String contactNumber ) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
-        this.course = course;
+        this.course = this.course;
         this.yearLevel = yearLevel;
         this.contactNumber = contactNumber;
     }
