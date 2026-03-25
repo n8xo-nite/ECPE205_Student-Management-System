@@ -1,9 +1,12 @@
 package panels;
 
 import model.DataStore;
+import model.Student;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Dashboard panel showing summary/statistics.
@@ -19,6 +22,7 @@ import java.awt.*;
  */
 public class DashboardPanel extends JPanel {
   private JLabel countLabel;
+  private JLabel averageStudent;
 
 
   public DashboardPanel() {
@@ -44,6 +48,11 @@ public class DashboardPanel extends JPanel {
     countLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     centerPanel.add(countLabel);
 
+    averageStudent = new JLabel("Average Age: " + DataStore.getInstance().getCount());
+    averageStudent.setFont(new Font("Arial" , Font.PLAIN , 18));
+    averageStudent.setAlignmentX(Component.CENTER_ALIGNMENT);
+    centerPanel.add(averageStudent);
+
     centerPanel.add(Box.createVerticalStrut(20));
 
     JButton refreshBtn = new JButton("Refresh");
@@ -57,6 +66,20 @@ public class DashboardPanel extends JPanel {
 
   private void refreshData() {
     countLabel.setText("Total Students: " + DataStore.getInstance().getCount());
+
+      List<Student> allStudents = DataStore.getInstance().getAllStudents();
+
+
+      int ageT = 0;
+      int avAge =0;
+
+
+      for (Student s : allStudents){
+          ageT += s.getAge();
+      }
+      avAge = ageT / DataStore.getInstance().getCount();
+      averageStudent.setText("Average Age: " + avAge );
+
   }
 
 }

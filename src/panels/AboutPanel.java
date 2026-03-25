@@ -20,7 +20,9 @@ public class AboutPanel extends JPanel {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-        aboutLabel = new JLabel("Total Students: " + DataStore.getInstance().getCount());
+        aboutLabel = new JLabel("Members: INOCENCIO , LOPEZ , GONZALES , CASTILLON" );
+
+
         aboutLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         aboutLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerPanel.add(aboutLabel);
