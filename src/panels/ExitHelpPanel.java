@@ -24,8 +24,10 @@ public class ExitHelpPanel extends JPanel {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-        helpLabel = new JLabel("Add Student Via AddStudentTab" );
-
+        helpLabel = new JLabel("Add Student Via AddStudentTab"  );
+        helpLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        helpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(helpLabel);
 
         JButton exitButton = new JButton("EXIT");
         exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -36,10 +38,6 @@ public class ExitHelpPanel extends JPanel {
             }
         });
         centerPanel.add(exitButton);
-
-        helpLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        helpLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        centerPanel.add(helpLabel);
 
         centerPanel.add(Box.createVerticalStrut(20));
 

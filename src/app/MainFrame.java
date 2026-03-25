@@ -1,5 +1,6 @@
 package app;
 
+
 import panels.*;
 
 import javax.swing.*;
@@ -19,6 +20,9 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
   public MainFrame() {
+      Image image = Toolkit.getDefaultToolkit().getImage("appLOGO/logo.png");
+      ImageIcon icon = new ImageIcon();
+      setIconImage(icon.getImage());
     setTitle("Student Management System");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(800, 600);
@@ -44,6 +48,7 @@ public class MainFrame extends JFrame {
     // Use the system look-and-feel for a native appearance
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+      
     } catch (Exception ignored) {
     }
 
