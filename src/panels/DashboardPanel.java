@@ -10,9 +10,9 @@ import java.util.List;
 
 /**
  * Dashboard panel showing summary/statistics.
- * 
+ *
  * ASSIGNED TO: Student 2 (Main Frame / Dashboard Owner)
- * 
+ *
  * TODO for Student 2:
  * - Display total number of students
  * - Add a welcome message or app logo
@@ -27,16 +27,20 @@ public class DashboardPanel extends JPanel {
 
   public DashboardPanel() {
     setLayout(new BorderLayout());
-//    ImageIcon icon = new ImageIcon();
-////    int w = icon.getIconWidth();
-////    int h = icon.getIconHeight();
-////    setPreferredSize(new Dimension(w, h));
+    setBackground(new Color(245,245,245));
+      Color newGreen = new Color(87, 242, 135);
+    // Title
 
-      // Title
-      JLabel title = new JLabel("Dashboard", SwingConstants.CENTER);
-      title.setFont(new Font("Arial", Font.BOLD, 28));
-      title.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-    add(title, BorderLayout.NORTH);
+      JPanel banner = new JPanel(new BorderLayout());
+      banner.setBackground(newGreen);
+      banner.setPreferredSize(new Dimension(0, 100));
+      banner.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+
+      JLabel title = new JLabel("DASHBOARD" , SwingConstants.CENTER);
+      title.setFont(new Font("SansSerif", Font.BOLD, 28));
+      title.setForeground(new Color(30, 30, 30));
+      banner.add(title, BorderLayout.CENTER);
+      add(banner,BorderLayout.NORTH);
 
       // Center content
     JPanel centerPanel = new JPanel();
@@ -65,7 +69,9 @@ public class DashboardPanel extends JPanel {
   }
 
   private void refreshData() {
-    countLabel.setText("Total Students: " + DataStore.getInstance().getCount());
+
+      int cnt = DataStore.getInstance().getCount();
+    countLabel.setText("Total Students: " + cnt);
 
       List<Student> allStudents = DataStore.getInstance().getAllStudents();
 
@@ -73,12 +79,18 @@ public class DashboardPanel extends JPanel {
       int ageT = 0;
       int avAge =0;
 
+      if (cnt > 0) {
+          for (Student s : allStudents) {
+              ageT += s.getAge();
+          }
+          avAge = ageT / DataStore.getInstance().getCount();
+          averageStudent.setText("Average Age: " + avAge );
 
-      for (Student s : allStudents){
-          ageT += s.getAge();
+      }else {
+          averageStudent.setText("Average Age: 0");
       }
-      avAge = ageT / DataStore.getInstance().getCount();
-      averageStudent.setText("Average Age: " + avAge );
+
+
 
   }
 
