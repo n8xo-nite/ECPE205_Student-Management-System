@@ -26,17 +26,14 @@ public class EditStudentPanel extends JPanel {
   private JTable table;
   private JTextField idField, nameField, ageField, fieldField, courseField, yearLevelField, contactField;
 
-
   public EditStudentPanel() {
     setLayout(new BorderLayout());
 
-    // Title
     JLabel title = new JLabel("Edit / Delete Student", SwingConstants.CENTER);
     title.setFont(new Font("Arial", Font.BOLD, 24));
     title.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
     add(title, BorderLayout.NORTH);
 
-    // Table
     String[] columns = { "Student ID", "Name", "Age" , "Field" , "Course" , "Year Level" , "Contact Number" };
     tableModel = new DefaultTableModel(columns, 0) {
       @Override
@@ -47,6 +44,30 @@ public class EditStudentPanel extends JPanel {
     table = new JTable(tableModel);
     table.setRowHeight(25);
     table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+    table.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+      @Override
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component c = super.getTableCellRendererComponent(
+                table, value, isSelected, hasFocus, row, column);
+
+        if (!isSelected) {
+          if (row % 2 == 0) {
+            c.setBackground(new Color(240, 240, 240));
+          } else {
+            c.setBackground(Color.WHITE);
+          }
+        } else {
+          c.setBackground(new Color(184, 207, 229));
+        }
+
+        return c;
+      }
+    });
+
+    table.setGridColor(new Color(200, 200, 200));
+    table.setSelectionBackground(new Color(184, 207, 229));
+
     table.getSelectionModel().addListSelectionListener(e -> {
       if (!e.getValueIsAdjusting()) {
         populateFields();
@@ -56,14 +77,13 @@ public class EditStudentPanel extends JPanel {
     JScrollPane scrollPane = new JScrollPane(table);
     add(scrollPane, BorderLayout.CENTER);
 
-    // Edit form + buttons at bottom
     JPanel bottomPanel = new JPanel(new BorderLayout());
     bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 15, 20));
 
     JPanel formPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
     formPanel.add(new JLabel("ID:"));
     idField = new JTextField(10);
-    idField.setEditable(false); // ID should not be changed
+    idField.setEditable(false);
     formPanel.add(idField);
 
     formPanel.add(new JLabel("Name:"));
@@ -89,16 +109,6 @@ public class EditStudentPanel extends JPanel {
     formPanel.add(new JLabel("Contact Number:"));
     contactField = new JTextField(12);
     formPanel.add(contactField);
-
-
-
-
-
-
-
-
-
-
 
     bottomPanel.add(formPanel, BorderLayout.CENTER);
 
@@ -144,7 +154,6 @@ public class EditStudentPanel extends JPanel {
     }
   }
 
-
   private void updateStudent() {
     int row = table.getSelectedRow();
     if (row < 0) {
@@ -175,7 +184,6 @@ public class EditStudentPanel extends JPanel {
     Student student = DataStore.getInstance().getAllStudents().get(row);
     student.setName(name);
     student.setAge(age);
-    student.setCourse(field);
     student.setCourse(course);
     student.setYearLevel(yearLevel);
     student.setContactNumber(contact);
@@ -183,7 +191,6 @@ public class EditStudentPanel extends JPanel {
     JOptionPane.showMessageDialog(this, "Student updated.", "Success", JOptionPane.INFORMATION_MESSAGE);
     loadData();
   }
-
 
   private void deleteStudent() {
     int row = table.getSelectedRow();
@@ -193,8 +200,8 @@ public class EditStudentPanel extends JPanel {
     }
 
     int confirm = JOptionPane.showConfirmDialog(this,
-        "Are you sure you want to delete this student?",
-        "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            "Are you sure you want to delete this student?",
+            "Confirm Delete", JOptionPane.YES_NO_OPTION);
 
     if (confirm == JOptionPane.YES_OPTION) {
       DataStore.getInstance().removeStudent(row);
@@ -207,5 +214,9 @@ public class EditStudentPanel extends JPanel {
     idField.setText("");
     nameField.setText("");
     ageField.setText("");
+    fieldField.setText("");
+    courseField.setText("");
+    yearLevelField.setText("");
+    contactField.setText("");
   }
 }
