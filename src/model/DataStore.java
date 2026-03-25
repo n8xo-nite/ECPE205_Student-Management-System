@@ -58,11 +58,14 @@ public class DataStore {
     return null;
   }
 
+
+  /** Update student via ID */
   public Student updateStudent(String id){
 
       return null;
   }
 
+  /** Search via name */
   public Student searchByName(String name){
 
       return null;
