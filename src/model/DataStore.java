@@ -20,10 +20,10 @@ public class DataStore {
 
   private DataStore() {
     students = new ArrayList<>();
-    // Pre-load some sample data for testing
-    students.add(new Student("2024-0001", "Juan Dela Cruz", 20));
-    students.add(new Student("2024-0002", "Maria Santos", 19));
-    students.add(new Student("2024-0003", "Jose Rizal", 21));
+//    // Pre-load some sample data for testing
+//    students.add(new Student("2024-0001", "Juan Dela Cruz", 20, course));
+//    students.add(new Student("2024-0002", "Maria Santos", 19, course));
+//    students.add(new Student("2024-0003", "Jose Rizal", 21, course));
   }
 
   /** Get the singleton instance */
@@ -56,6 +56,19 @@ public class DataStore {
       }
     }
     return null;
+  }
+
+
+  /** Update student via ID */
+  public Student updateStudent(String id){
+
+      return null;
+  }
+
+  /** Search via name */
+  public Student searchByName(String name){
+
+      return null;
   }
 
   /** Get total number of students */
