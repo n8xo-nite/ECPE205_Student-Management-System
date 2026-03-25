@@ -73,6 +73,17 @@ public class EditStudentPanel extends JPanel {
     ageField = new JTextField(5);
     formPanel.add(ageField);
 
+    formPanel.add(new JLabel("Field"));
+
+
+
+
+
+
+
+
+
+
     bottomPanel.add(formPanel, BorderLayout.CENTER);
 
     JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
