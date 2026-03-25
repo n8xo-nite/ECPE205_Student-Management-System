@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
@@ -31,18 +29,16 @@ public class ViewStudentsPanel extends JPanel {
     public ViewStudentsPanel() {
         setLayout(new BorderLayout());
 
-// Title
         JLabel title = new JLabel("All Students", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         title.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         add(title, BorderLayout.NORTH);
 
-// Table
         String[] columns = { "Student ID", "Name", "Age" , "Email", "Course" ,"Year Level" ,"Contact Number" };
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Read-only table
+                return false;
             }
         };
 
@@ -51,16 +47,39 @@ public class ViewStudentsPanel extends JPanel {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.getTableHeader().setReorderingAllowed(false);
 
+        table.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        c.setBackground(new Color(240, 240, 240));
+                    } else {
+                        c.setBackground(Color.WHITE);
+                    }
+                } else {
+                    c.setBackground(new Color(184, 207, 229));
+                }
+
+                return c;
+            }
+        });
+
+        table.setGridColor(new Color(200, 200, 200));
+        table.setSelectionBackground(new Color(184, 207, 229));
 
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
+        table.setOpaque(true);
+        table.setFillsViewportHeight(true);
 
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         add(scrollPane, BorderLayout.CENTER);
 
-// Refresh button
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 15, 0));
         JButton refreshBtn = new JButton("Refresh List");
@@ -68,15 +87,14 @@ public class ViewStudentsPanel extends JPanel {
         buttonPanel.add(refreshBtn);
         add(buttonPanel, BorderLayout.SOUTH);
 
-// Load initial data
         loadData();
     }
+
     private void loadData() {
-        tableModel.setRowCount(0); // Clear table
+        tableModel.setRowCount(0);
         List<Student> students = DataStore.getInstance().getAllStudents();
         for (Student s : students) {
             tableModel.addRow(s.toTableRow());
         }
     }
-
 }
